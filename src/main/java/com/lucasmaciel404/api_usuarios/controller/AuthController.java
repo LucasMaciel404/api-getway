@@ -1,10 +1,13 @@
 package com.lucasmaciel404.api_usuarios.controller;
 
+import com.lucasmaciel404.api_usuarios.domain.User;
 import com.lucasmaciel404.api_usuarios.dto.LoginDto;
 import com.lucasmaciel404.api_usuarios.dto.RegisterDto;
 import com.lucasmaciel404.api_usuarios.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RequestMapping("/auth")
@@ -14,12 +17,14 @@ public class AuthController {
     UserService userService;
 
     @GetMapping("/users")
-    public void getAllUsers(){
-        userService.getAllUsers();
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginDto body){ }
+    public void login(@RequestBody LoginDto body){
+        userService.login(body);
+    }
 
     @PostMapping("/register")
     public void register(@RequestBody RegisterDto body){
