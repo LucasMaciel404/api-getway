@@ -21,7 +21,6 @@ public class User {
     private String imageUrl;
     private String cep;
     private String hash;
-    private String salt;
     private LocalDateTime createdAt;
     private Float price;
 }
