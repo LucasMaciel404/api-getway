@@ -28,27 +28,26 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String login(LoginDto login) {
-        User usuario = userRepository.findByPhone(login.phone());
+    public String login(LoginDto loginDto) {
+        User usuario = userRepository.findByPhone(loginDto.phone());
 
-        if (usuario != null && usuario.getHash().equals(login.password())) {
+        if (usuario != null && usuario.getHash().equals(loginDto.password())) {
             return "Token";
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");
         }
     }
 
-    public void register(RegisterDto register) {
+    public void register(RegisterDto registerDto) {
         User user = new User(null,
-                register.username(),
-                register.role(),
-                register.phone(),
-                register.imageUrl(),
-                register.cep(),
-                register.password(),
-                register.password(),
+                registerDto.username(),
+                registerDto.role(),
+                registerDto.phone(),
+                registerDto.imageUrl(),
+                registerDto.cep(),
+                passwordEncoder.encode(registerDto.password()), // esse hash possui o salt imbutido.
                 LocalDateTime.now(),
-                register.price());
+                registerDto.price());
 
         userRepository.save(user);
     }
