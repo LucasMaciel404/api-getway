@@ -30,8 +30,8 @@ public class UserService {
 
     public String login(LoginDto loginDto) {
         User usuario = userRepository.findByPhone(loginDto.phone());
-
-        if (usuario != null && usuario.getHash().equals(loginDto.password())) {
+        boolean matchLogin = checkPassword(loginDto.password(), usuario.getHash());
+        if (matchLogin) {
             return "Token";
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");
@@ -50,5 +50,8 @@ public class UserService {
                 registerDto.price());
 
         userRepository.save(user);
+    }
+    public boolean checkPassword (String password, String encodedPassword){
+        return passwordEncoder.matches(password, encodedPassword);
     }
 }
