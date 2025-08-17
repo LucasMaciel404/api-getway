@@ -30,7 +30,7 @@ public class UserService {
 
     public String login(LoginDto loginDto) {
         User usuario = userRepository.findByPhone(loginDto.phone());
-        boolean matchLogin = checkPassword(loginDto.password(), usuario.getHash());
+        boolean matchLogin = passwordEncoder.matches(loginDto.password(), usuario.getHash());
         if (matchLogin) {
             return "Token";
         } else {
@@ -50,8 +50,5 @@ public class UserService {
                 registerDto.price());
 
         userRepository.save(user);
-    }
-    public boolean checkPassword (String password, String encodedPassword){
-        return passwordEncoder.matches(password, encodedPassword);
     }
 }
