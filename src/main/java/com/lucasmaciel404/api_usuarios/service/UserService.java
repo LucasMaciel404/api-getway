@@ -4,13 +4,11 @@ import com.lucasmaciel404.api_usuarios.domain.User;
 import com.lucasmaciel404.api_usuarios.dto.LoginDto;
 import com.lucasmaciel404.api_usuarios.dto.RegisterDto;
 import com.lucasmaciel404.api_usuarios.repository.UserRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.function.EntityResponse;
 
 import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
@@ -24,6 +22,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtService jwtService;
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -32,7 +33,10 @@ public class UserService {
         User usuario = userRepository.findByPhone(loginDto.phone());
         boolean matchLogin = passwordEncoder.matches(loginDto.password(), usuario.getHash());
         if (matchLogin) {
-            return "Token";
+            // tenho que colocar as roles do banco
+            List<String> roles = List.of("ROLE_ADMIN"); // "ROLE_ADMIN", "ROLE_USER", "ROLE_MANICURE"
+            String token = jwtService.generateToken(usuario.getUsername(), roles);
+            return token;
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");
         }

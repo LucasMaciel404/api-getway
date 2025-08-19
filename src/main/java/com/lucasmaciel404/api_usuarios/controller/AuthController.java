@@ -31,3 +31,7 @@ public class AuthController {
         userService.register(body);
     }
 }
+/*
+ * Bom lembrar que tem o JWT para as rotas que nao estejam em "/Auth/*"
+ * lembrete pessoal para minha aminezia :)
+ */
