@@ -33,9 +33,9 @@ public class UserService {
         User usuario = userRepository.findByPhone(loginDto.phone());
         boolean matchLogin = passwordEncoder.matches(loginDto.password(), usuario.getHash());
         if (matchLogin) {
-            // tenho que colocar as roles do banco
-            List<String> roles = List.of("ROLE_ADMIN"); // "ROLE_ADMIN", "ROLE_USER", "ROLE_MANICURE"
+            List<String> roles = List.of(usuario.getRole().split(" ")); // "ROLE_ADMIN", "ROLE_USER", "ROLE_MANICURE"
             String token = jwtService.generateToken(usuario.getUsername(), roles);
+
             return token;
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");

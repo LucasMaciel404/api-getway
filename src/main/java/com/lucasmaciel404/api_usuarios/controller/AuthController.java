@@ -5,17 +5,17 @@ import com.lucasmaciel404.api_usuarios.dto.LoginDto;
 import com.lucasmaciel404.api_usuarios.dto.RegisterDto;
 import com.lucasmaciel404.api_usuarios.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RequestMapping("/auth")
 @RestController
 public class AuthController {
     @Autowired
     UserService userService;
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/users")
     public List<User> getAllUsers(){
         return userService.getAllUsers();

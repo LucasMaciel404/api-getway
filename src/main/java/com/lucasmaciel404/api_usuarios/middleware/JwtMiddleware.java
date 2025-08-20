@@ -11,8 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtMiddleware extends OncePerRequestFilter {
@@ -30,15 +33,21 @@ public class JwtMiddleware extends OncePerRequestFilter {
             String token = header.substring(7);
 
             try {
-                String username = jwtService.validateToken(token);
+                String username = jwtService.getUsername(token);
+                List<String> roles = jwtService.getRoles(token);
+
+                var authorities = roles.stream()
+                        .map(role -> new SimpleGrantedAuthority(role))
+                        .toList();
 
                 var authentication = new UsernamePasswordAuthenticationToken(
                         username,
                         null,
-                        null
+                        authorities
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
 
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
