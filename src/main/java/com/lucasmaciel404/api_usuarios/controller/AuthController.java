@@ -5,8 +5,10 @@ import com.lucasmaciel404.api_usuarios.dto.LoginDto;
 import com.lucasmaciel404.api_usuarios.dto.RegisterDto;
 import com.lucasmaciel404.api_usuarios.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,13 +24,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginDto body){
-        userService.login(body);
+    public String login(@RequestBody LoginDto loginDto){
+        return userService.login(loginDto);
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegisterDto body){
-        userService.register(body);
+    public String register(@RequestBody RegisterDto registerDto){
+
+        boolean userExist = userService.existUserWhithPhone(registerDto.phone());
+        if (userExist) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario ja existente");
+
+        userService.register(registerDto);
+
+        return this.login(new LoginDto(registerDto.phone(), registerDto.password()));
     }
 }
 /*

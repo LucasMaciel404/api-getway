@@ -43,6 +43,7 @@ public class UserService {
     }
 
     public void register(RegisterDto registerDto) {
+
         User user = new User(null,
                 registerDto.username(),
                 registerDto.role(),
@@ -54,5 +55,9 @@ public class UserService {
                 registerDto.price());
 
         userRepository.save(user);
+    }
+
+    public boolean existUserWhithPhone(String phone){
+        return userRepository.findByPhone(phone) != null ? true : false;
     }
 }

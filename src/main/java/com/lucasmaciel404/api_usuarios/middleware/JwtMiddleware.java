@@ -33,6 +33,8 @@ public class JwtMiddleware extends OncePerRequestFilter {
             String token = header.substring(7);
 
             try {
+                jwtService.validateToken(token);
+
                 String username = jwtService.getUsername(token);
                 List<String> roles = jwtService.getRoles(token);
 
@@ -51,6 +53,8 @@ public class JwtMiddleware extends OncePerRequestFilter {
 
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Token inválido ou expirado");
+
                 return;
             }
         }
