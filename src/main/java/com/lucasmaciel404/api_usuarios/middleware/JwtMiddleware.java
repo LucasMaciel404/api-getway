@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtMiddleware extends OncePerRequestFilter {
@@ -39,8 +40,9 @@ public class JwtMiddleware extends OncePerRequestFilter {
                 List<String> roles = jwtService.getRoles(token);
 
                 var authorities = roles.stream()
-                        .map(role -> new SimpleGrantedAuthority(role))
-                        .toList();
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
+
 
                 var authentication = new UsernamePasswordAuthenticationToken(
                         username,
@@ -53,7 +55,7 @@ public class JwtMiddleware extends OncePerRequestFilter {
 
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Token inválido ou expirado");
+                response.getWriter().write("Token invalido ou expirado");
 
                 return;
             }
