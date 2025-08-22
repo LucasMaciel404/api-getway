@@ -4,6 +4,7 @@ import com.lucasmaciel404.api_usuarios.domain.User;
 import com.lucasmaciel404.api_usuarios.dto.LoginDto;
 import com.lucasmaciel404.api_usuarios.dto.RegisterDto;
 import com.lucasmaciel404.api_usuarios.repository.UserRepository;
+import com.lucasmaciel404.api_usuarios.response.TokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,14 +31,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String login(LoginDto loginDto) {
+    public TokenResponse login(LoginDto loginDto) {
         User usuario = userRepository.findByPhone(loginDto.phone());
         boolean matchLogin = passwordEncoder.matches(loginDto.password(), usuario.getHash());
         if (matchLogin) {
             List<String> roles = List.of(usuario.getRole().split(" ")); // "ROLE_ADMIN", "ROLE_USER", "ROLE_MANICURE"
             String token = jwtService.generateToken(usuario.getUsername(), roles);
-
-            return token;
+            long expirationTime = jwtService.getRemainingTime(token);
+            return new TokenResponse(token, expirationTime);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");
         }

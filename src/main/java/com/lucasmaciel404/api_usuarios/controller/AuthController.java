@@ -3,6 +3,7 @@ package com.lucasmaciel404.api_usuarios.controller;
 import com.lucasmaciel404.api_usuarios.domain.User;
 import com.lucasmaciel404.api_usuarios.dto.LoginDto;
 import com.lucasmaciel404.api_usuarios.dto.RegisterDto;
+import com.lucasmaciel404.api_usuarios.response.TokenResponse;
 import com.lucasmaciel404.api_usuarios.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +25,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto){
+    public TokenResponse login(@RequestBody LoginDto loginDto){
         return userService.login(loginDto);
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterDto registerDto){
+    public TokenResponse register(@RequestBody RegisterDto registerDto){
 
         boolean userExist = userService.existUserWhithPhone(registerDto.phone());
         if (userExist) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario ja existente");
