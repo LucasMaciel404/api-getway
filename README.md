@@ -1,8 +1,8 @@
 # API de Verificação e Login de Usuários
 
-Este projeto é o serviço de autenticação e gerenciamento de usuários de
+Este projeto é o getway de autenticação e gerenciamento de usuários de
 uma aplicação voltada para manicures.
-Ele faz parte de uma arquitetura baseada em microservices, desenvolvida
+Ele faz parte de uma arquitetura baseada em microservices, que será toda desenvolvida
 com o objetivo de:
 
 -   Aprimorar o aprendizado em desenvolvimento de APIs e microsserviços.
@@ -17,7 +17,7 @@ com o objetivo de:
 -   Spring Data JPA para persistência
 -   PostgreSQL como banco de dados
 -   Springdoc OpenAPI (Swagger) para documentação
--   Futuro suporte a JWT para autenticação segura
+-   suporte a JWT para autenticação segura
 
 ## Objetivo inicial
 
