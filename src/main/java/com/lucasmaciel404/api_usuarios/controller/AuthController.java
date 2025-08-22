@@ -18,11 +18,6 @@ import java.util.List;
 public class AuthController {
     @Autowired
     UserService userService;
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/users")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
-    }
 
     @PostMapping("/login")
     public TokenResponse login(@RequestBody LoginDto loginDto){

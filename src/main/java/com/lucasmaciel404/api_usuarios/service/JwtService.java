@@ -46,7 +46,7 @@ public class JwtService {
                     .build()
                     .verify(token);
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalido ou expirado");
         }
     }
 
