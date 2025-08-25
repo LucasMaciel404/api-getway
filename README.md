@@ -40,6 +40,8 @@ dados persistentes no volume ‘pgdata’
 
 ## Coisas feitas
 
--   Implementado cadastro de usuários
--   Implementado login e verificação de credenciais
--   Adicionada criptografia de senha utilizando hash seguro
+-   Implementação cadastro de usuários
+-   Implementação login 
+-   Implementação criptografia de senha utilizando hash e salt
+-   Implementação do suporte a JWT para autenticação mais segura
+-   Implementação da criação do banco de dados com Docker
