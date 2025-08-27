@@ -10,7 +10,7 @@ com o objetivo de:
     serviço seja atualizado ou expandido de forma independente.
 -   Garantir escalabilidade, separando responsabilidades e otimizando
     recursos.
-
+-   Utilização de Migrations para historico do banco de dados
 ## Tecnologias previstas
 
 -   Java com Spring Boot
