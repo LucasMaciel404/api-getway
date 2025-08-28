@@ -1,4 +1,4 @@
-package com.lucasmaciel404.api_usuarios.service;
+package com.lucasmaciel404.api_usuarios.application.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

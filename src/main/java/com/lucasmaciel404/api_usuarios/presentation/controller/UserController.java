@@ -1,9 +1,8 @@
-package com.lucasmaciel404.api_usuarios.controller;
+package com.lucasmaciel404.api_usuarios.presentation.controller;
 
-import com.lucasmaciel404.api_usuarios.domain.User;
-import com.lucasmaciel404.api_usuarios.mapper.Mapper;
-import com.lucasmaciel404.api_usuarios.response.UserResponse;
-import com.lucasmaciel404.api_usuarios.service.UserService;
+import com.lucasmaciel404.api_usuarios.Infrastructure.mapper.Mapper;
+import com.lucasmaciel404.api_usuarios.domain.response.UserResponse;
+import com.lucasmaciel404.api_usuarios.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

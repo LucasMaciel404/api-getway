@@ -1,6 +1,6 @@
-package com.lucasmaciel404.api_usuarios.middleware;
+package com.lucasmaciel404.api_usuarios.Infrastructure.middleware;
 
-import com.lucasmaciel404.api_usuarios.service.JwtService;
+import com.lucasmaciel404.api_usuarios.application.service.JwtService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

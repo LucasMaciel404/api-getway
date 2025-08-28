@@ -1,6 +1,6 @@
-package com.lucasmaciel404.api_usuarios.config;
+package com.lucasmaciel404.api_usuarios.Infrastructure.config;
 
-import com.lucasmaciel404.api_usuarios.middleware.JwtMiddleware;
+import com.lucasmaciel404.api_usuarios.Infrastructure.middleware.JwtMiddleware;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
