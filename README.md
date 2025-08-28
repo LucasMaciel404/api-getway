@@ -45,3 +45,4 @@ dados persistentes no volume ‘pgdata’
 -   Implementação criptografia de senha utilizando hash e salt
 -   Implementação do suporte a JWT para autenticação mais segura
 -   Implementação da criação do banco de dados com Docker
+-   Implementação da arquitetura em camadas de forma simples
